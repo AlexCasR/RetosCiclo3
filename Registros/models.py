@@ -12,6 +12,9 @@ class Empresa(models.Model):
     SectorProductivo=models.CharField(max_length=50)
     FechaCreacion=models.DateField()
     
+    def __str__(self):
+        return self.Nombre
+    
 class Empleados(models.Model):
     IDemp=models.IntegerField(primary_key=True)
     Nombre=models.CharField(max_length=50)
@@ -21,6 +24,9 @@ class Empleados(models.Model):
     Empresa=models.ForeignKey(Empresa, on_delete=models.CASCADE)
     FechaCreacion=models.DateField()
     
+    def __str__(self):
+        return self.Nombre+" "+self.Apellido
+    
 class Usuarios(models.Model):
     UserName=models.CharField(max_length=50,primary_key=True)
     IDuser=models.ForeignKey(Empleados, on_delete=models.CASCADE)
@@ -29,6 +35,9 @@ class Usuarios(models.Model):
     Email=models.EmailField(unique=True)
     Roll=models.TextField(max_length=50)
     FechaCreacion=models.DateField()
+    
+    def __str__(self):
+        return self.UserName
     
 class Transferencias(models.Model):
     IDT=models.AutoField(primary_key=True)
