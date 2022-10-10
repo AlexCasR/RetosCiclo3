@@ -134,6 +134,22 @@ class UsersView(View):
             
         return JsonResponse(mensaje)
     
+    def put(self,request,UserName):
+        data=json.loads(request.body)
+        Usuar=list(Usuarios.objects.filter(UserName=UserName).values())
+        if len(Usuar)>0:
+            Usu=Usuarios.objects.get(UserName=UserName)
+            Usu.Password=data["Password"]
+            Usu.Email=data["Email"]
+            Usu.Roll=data["Roll"]
+            Usu.FechaCreacion=data["FechaCreacion"]
+            Usu.save()
+            mensajemod={"mensaje":"Este Usuario se actualizo de forma exitosa."}
+
+        else:
+            mensajemod={"mensaje":"No se encontro este usuario"}
+        return JsonResponse(mensajemod)
+    
     def get(self,request):
         Users=list(Usuarios.objects.values())
         if len(Users)>0:
